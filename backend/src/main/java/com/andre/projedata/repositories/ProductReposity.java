@@ -21,4 +21,10 @@ public interface ProductReposity extends JpaRepository<Product, Long>{
 			+ "(COALESCE(:feedstocks) IS NULL OR cats IN :feedstocks) AND "
 			+ "(LOWER (obj.name) LIKE LOWER(CONCAT('%',:name,'%')))")
 	Page<Product> find(List<Feedstock> feedstocks, Pageable pageable, String name);
+	
+	@Query("SELECT DISTINCT obj FROM Product  obj INNER JOIN obj.feedstocks cats WHERE "
+			+ "(COALESCE(:feedstocks) IS NULL OR cats IN :feedstocks) AND "
+			+ "(LOWER (obj.name) LIKE LOWER(CONCAT('%',:name,'%'))) AND "
+			+ "cats.amount > 0")
+	Page<Product> findProductWithAmount(List<Feedstock> feedstocks, Pageable pageable, String name);
 }
