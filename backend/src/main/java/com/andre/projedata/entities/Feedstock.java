@@ -22,7 +22,8 @@ public class Feedstock implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private Integer amount;
+	private Double amount;
+	private String type;
 	
 	@ManyToMany(mappedBy = "feedstocks")
 	private Set<Product> products = new HashSet<>();
@@ -30,11 +31,12 @@ public class Feedstock implements Serializable{
 	public Feedstock() {
 	}
 
-	public Feedstock(Long id, String name, Integer amount) {
+	public Feedstock(Long id, String name, Double amount, String type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
+		this.type = type;
 	}
 
 	public Long getId() {
@@ -53,12 +55,24 @@ public class Feedstock implements Serializable{
 		this.name = name;
 	}
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public Set<Product> getProducts() {
+		return products;
 	}
 
 	@Override

@@ -9,22 +9,25 @@ public class FeedstockDTO implements Serializable {
 	
 	private Long id;
 	private String name;
-	private Integer amount;
+	private Double amount;
+	private String type;
 	
 	public FeedstockDTO() {
 	}
 
-	public FeedstockDTO(Long id, String name, Integer amount) {
+	public FeedstockDTO(Long id, String name, Double amount, String type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
+		this.type = type;
 	}
 	
 	public FeedstockDTO(Feedstock entity) {
 		id = entity.getId();
 		name = entity.getName();
 		amount = entity.getAmount();
+		type = entity.getType();
 	}
 
 	public Long getId() {
@@ -43,12 +46,20 @@ public class FeedstockDTO implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }

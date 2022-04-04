@@ -1,7 +1,7 @@
-INSERT INTO tb_feedstock (name, amount) VALUES ('madeira', '10');
-INSERT INTO tb_feedstock (name, amount) VALUES ('borracha', '20');
-INSERT INTO tb_feedstock (name, amount) VALUES ('ouro', '100');
-INSERT INTO tb_feedstock (name, amount) VALUES ('metal', '100');
+INSERT INTO tb_feedstock (name, amount, type) VALUES ('madeira', '10' , 'm3');
+INSERT INTO tb_feedstock (name, amount, type) VALUES ('borracha', '20' , 'N/m');
+INSERT INTO tb_feedstock (name, amount, type) VALUES ('ouro', '100', 'gramas');
+INSERT INTO tb_feedstock (name, amount, type) VALUES ('metal', '100', 'gramas');
 
 
 INSERT INTO tb_product (name,price) VALUES ('lapis', 4.90);
