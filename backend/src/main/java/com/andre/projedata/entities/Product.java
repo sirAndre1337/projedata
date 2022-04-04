@@ -65,6 +65,10 @@ public class Product implements Serializable{
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
+	public Set<Feedstock> getFeedstocks() {
+		return feedstocks;
+	}
 
 	@Override
 	public int hashCode() {
