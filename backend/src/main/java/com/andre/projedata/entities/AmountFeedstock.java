@@ -1,6 +1,5 @@
 package com.andre.projedata.entities;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -13,50 +12,40 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_feedstock")
-public class Feedstock implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+@Table(name = "tb_amountfeedstock")
+public class AmountFeedstock {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	
+	@OneToOne
+	@JoinColumn(name = "feedstock_id")
+	private Feedstock feedstock;
+	
 	private Double amount;
-	private String type;
 	
-	@OneToOne(mappedBy = "feedstock")
-	private AmountFeedstock amountFeedstock;
-	
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "product_id")
-	private Product product;	
+	private Product product;
 	
-	public Feedstock() {
+	public AmountFeedstock() {
 	}
 
-	public Feedstock(Long id, String name, Double amount, String type) {
+	public AmountFeedstock(Long id, Feedstock feedstock, Double amount, Product product) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.feedstock = feedstock;
 		this.amount = amount;
-		this.type = type;
+		this.product = product;
 	}
 
-	public Long getId() {
-		return id;
+	public Feedstock getFeedstock() {
+		return feedstock;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setFeedstock(Feedstock feedstock) {
+		this.feedstock = feedstock;
 	}
 
 	public Double getAmount() {
@@ -67,22 +56,14 @@ public class Feedstock implements Serializable{
 		this.amount = amount;
 	}
 	
-	public String getType() {
-		return type;
+	public Long getId() {
+		return id;
 	}
 	
-	public void setType(String type) {
-		this.type = type;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	public AmountFeedstock getAmountFeedstock() {
-		return amountFeedstock;
-	}
-	
-	public void setAmountFeedstock(AmountFeedstock amountFeedstock) {
-		this.amountFeedstock = amountFeedstock;
-	}
-	
+
 	public Product getProduct() {
 		return product;
 	}
@@ -90,7 +71,7 @@ public class Feedstock implements Serializable{
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -104,7 +85,8 @@ public class Feedstock implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Feedstock other = (Feedstock) obj;
+		AmountFeedstock other = (AmountFeedstock) obj;
 		return Objects.equals(id, other.id);
 	}
+	
 }

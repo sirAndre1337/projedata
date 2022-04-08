@@ -3,9 +3,8 @@ package com.andre.projedata.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import com.andre.projedata.entities.Feedstock;
+import com.andre.projedata.entities.AmountFeedstock;
 import com.andre.projedata.entities.Product;
 
 public class ProductDTO implements Serializable {
@@ -15,27 +14,23 @@ public class ProductDTO implements Serializable {
 	private String name;
 	private Double price;
 
-	private List<FeedstockDTO> feedstocks = new ArrayList<>();
+	private List<AmountFeedstock> amountFeedstocks = new ArrayList<>();
 
 	public ProductDTO() {
 	}
 
-	public ProductDTO(Long id, String name, Double price) {
+	public ProductDTO(Long id, String name, Double price, List<AmountFeedstock> amountFeedstocks) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.amountFeedstocks = amountFeedstocks;
 	}
 
 	public ProductDTO(Product entity) {
 		id = entity.getId();
 		name = entity.getName();
 		price = entity.getPrice();
-	}
-
-	public ProductDTO(Product entity, Set<Feedstock> feedstocks) {
-		this(entity);
-		feedstocks.forEach(fs -> this.feedstocks.add(new FeedstockDTO(fs)));
 	}
 
 	public Long getId() {
@@ -61,13 +56,9 @@ public class ProductDTO implements Serializable {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-
-	public List<FeedstockDTO> getFeedstocks() {
-		return feedstocks;
-	}
-
-	public void setFeedstocks(List<FeedstockDTO> feedstocks) {
-		this.feedstocks = feedstocks;
+	
+	public List<AmountFeedstock> getAmountFeedstocks() {
+		return amountFeedstocks;
 	}
 
 }

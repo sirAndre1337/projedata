@@ -1,17 +1,15 @@
 package com.andre.projedata.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,11 +24,9 @@ public class Product implements Serializable{
 	private String name;
 	private Double price;
 	
-	@ManyToMany
-	@JoinTable(name = "tb_product_feedstock",
-		joinColumns = @JoinColumn(name = "product_id"),
-		inverseJoinColumns = @JoinColumn(name = "feedstock_id"))
-	Set<Feedstock> feedstocks = new HashSet<>();
+	@OneToMany(mappedBy = "product")
+	private List<AmountFeedstock> amountFeedstocks = new ArrayList<>();
+	
 	
 	public Product() {
 	}
@@ -66,10 +62,14 @@ public class Product implements Serializable{
 		this.price = price;
 	}
 	
-	public Set<Feedstock> getFeedstocks() {
-		return feedstocks;
+	public List<AmountFeedstock> getAmountFeedstocks() {
+		return amountFeedstocks;
 	}
-
+	
+	public void setAmountFeedstocks(List<AmountFeedstock> amountFeedstocks) {
+		this.amountFeedstocks = amountFeedstocks;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
