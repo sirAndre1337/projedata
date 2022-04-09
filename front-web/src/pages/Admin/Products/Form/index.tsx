@@ -29,7 +29,7 @@ const Form = () => {
     const [feedstocks, setFeedstocks] = useState<Feedstock[]>([]);
     const [select, setSelect] = useState();
     const [a, setA] = useState<Feedstock>();
-    const [amount, setAmount] = useState('');   
+    const [amount, setAmount] = useState('');
     const payload = [{}]
 
     const handleSelectFeedstock = (e: any) => {
@@ -38,8 +38,8 @@ const Form = () => {
     }
 
     const handlePayload = () => {
-        
-            
+
+
     }
 
     useEffect(() => {
@@ -76,81 +76,83 @@ const Form = () => {
 
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <BaseForm title={isEditing ? 'Editar produto' : 'Cadastrar um produto'}>
-                <div className='row'>
-                    <div className="">
-                        <div className='mb-4'>
-                            <input
-                                type="text"
-                                className={`form-control input-base ${errors.name ? 'is-invalid' : ''}`}
-                                placeholder='Nome do produto'
-                                {...register('name', {
-                                    required: 'Campo nome obrigatório',
-                                    minLength: { value: 2, message: 'O Campo deve ter no mínimo 2 caracteres' },
-                                    maxLength: { value: 50, message: 'O Campo deve ter no máximo 50 caracteres' }
-                                })}
-                            />
-                            {errors.name &&
-                                <div className='invalid-feedback d-block'>
-                                    {errors.name.message}
-                                </div>}
-                        </div>
-                        <div className='mb-4'>
-                            <Controller
-                                rules={{ required: true }}
-                                name="feedstocks"
-                                control={control}
-                                render={({ field }) =>
-                                    <Select
-                                        {...field}
-                                        getOptionLabel={(option: Feedstock) => option.name}
-                                        getOptionValue={(option: Feedstock) => String(option.id)}
-                                        options={feedstocks}
-                                        placeholder="Feedstock"
-                                        classNamePrefix="feedstock-select"
-                                        onChange={handleSelectFeedstock}
-                                        isOptionSelected={select}
-                                    />}
-                            />
-                            {errors.feedstocks &&
-                                <div className='invalid-feedback d-block'>
-                                    Campo obrigatório
-                                </div>}
-                        </div>
-                        {a &&
+        <div className="admin-product-container">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <BaseForm title={isEditing ? 'Editar produto' : 'Cadastrar um produto'} isProduct={true}>
+                    <div className='row'>
+                        <div className="">
                             <div className='mb-4'>
-                            <input
-                                type="number"
-                                value={amount}
-                                className='form-control input-base'
-                                placeholder='Amount' 
-                                onChange={(e) => {setAmount(e.target.value)}}
-                            />
-                            
-                                <button className='btn btn-success mt-2' onClick={e => {e.preventDefault(); handlePayload()}}>
-                                    Save feedstock
-                                </button>
-                        </div>
-                        
-                        }
-                        
-                        <div className='mb-4'>
-                            <input
-                                type="number"
-                                className={`form-control input-base ${errors.price ? 'is-invalid' : ''}`}
-                                placeholder='Preço'
-                                {...register('price', { required: 'Campo preço obrigatório' })}
-                            />
-                            {errors.price &&
-                                <div className='invalid-feedback d-block'>
-                                    {errors.price.message}
-                                </div>}
+                                <input
+                                    type="text"
+                                    className={`form-control input-base ${errors.name ? 'is-invalid' : ''}`}
+                                    placeholder='Nome do produto'
+                                    {...register('name', {
+                                        required: 'Campo nome obrigatório',
+                                        minLength: { value: 2, message: 'O Campo deve ter no mínimo 2 caracteres' },
+                                        maxLength: { value: 50, message: 'O Campo deve ter no máximo 50 caracteres' }
+                                    })}
+                                />
+                                {errors.name &&
+                                    <div className='invalid-feedback d-block'>
+                                        {errors.name.message}
+                                    </div>}
+                            </div>
+                            <div className='mb-4'>
+                                <Controller
+                                    rules={{ required: true }}
+                                    name="feedstocks"
+                                    control={control}
+                                    render={({ field }) =>
+                                        <Select
+                                            {...field}
+                                            getOptionLabel={(option: Feedstock) => option.name}
+                                            getOptionValue={(option: Feedstock) => String(option.id)}
+                                            options={feedstocks}
+                                            placeholder="Feedstock"
+                                            classNamePrefix="feedstock-select"
+                                            onChange={handleSelectFeedstock}
+                                            isOptionSelected={select}
+                                        />}
+                                />
+                                {errors.feedstocks &&
+                                    <div className='invalid-feedback d-block'>
+                                        Campo obrigatório
+                                    </div>}
+                            </div>
+                            {a &&
+                                <div className='mb-4'>
+                                    <input
+                                        type="number"
+                                        value={amount}
+                                        className='form-control input-base'
+                                        placeholder='Amount'
+                                        onChange={(e) => { setAmount(e.target.value) }}
+                                    />
+
+                                    <button className='btn btn-success mt-2' onClick={e => { e.preventDefault(); handlePayload() }}>
+                                        Save feedstock
+                                    </button>
+                                </div>
+
+                            }
+
+                            <div className='mb-4'>
+                                <input
+                                    type="number"
+                                    className={`form-control input-base ${errors.price ? 'is-invalid' : ''}`}
+                                    placeholder='Preço'
+                                    {...register('price', { required: 'Campo preço obrigatório' })}
+                                />
+                                {errors.price &&
+                                    <div className='invalid-feedback d-block'>
+                                        {errors.price.message}
+                                    </div>}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </BaseForm>
-        </form>
+                </BaseForm>
+            </form>
+        </div>
     )
 }
 

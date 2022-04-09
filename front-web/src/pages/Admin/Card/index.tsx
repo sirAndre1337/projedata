@@ -1,24 +1,27 @@
 import { Link } from 'react-router-dom';
-import { Product } from '../../../core/types/Entities';
+import { Feedstock, Product } from '../../../core/types/Entities';
 import './styles.scss';
 
 type Props = {
-    product: Product
+    product?: Product
     onRemove: (productId: number) => void;
+    isProduct: boolean,
+    feedstock?: Feedstock
 }
 
-const Card = ({product, onRemove} : Props) => {
+const Card = ({ product, onRemove, isProduct, feedstock }: Props) => {
     return (
-        <div className="card-base product-card-admin">
-            <div className='card-content'>
+        <>
+            {isProduct ? <div className="card-base product-card-admin">
+                <div className='card-content'>
                     <h3 className='product-card-name-admin'>
-                        {product.name}
+                        {product?.name}
                     </h3>
-                        {product.price} R$
+                    {product?.price} R$
                 </div>
                 <div className='buttons-container'>
                     <Link
-                        to={`/admin/products/${product.id}`}
+                        to={`/admin/products/${product?.id}`}
                         type="button"
                         className="btn btn-outline-secondary btn-product mb-3"
                     >
@@ -27,12 +30,36 @@ const Card = ({product, onRemove} : Props) => {
                     <button
                         type="button"
                         className="btn btn-outline-danger btn-product"
-                        onClick={() => onRemove(product.id)}
+                        onClick={() => onRemove(product !== undefined ? product?.id : 0)}
                     >
                         EXCLUIR
                     </button>
                 </div>
-        </div>
+            </div> : 
+            <div className="card-base product-card-admin">
+                <div className='card-content'>
+                    <h3 className='product-card-name-admin'>
+                        {feedstock?.name}
+                    </h3>
+                </div>
+                <div className='buttons-container'>
+                    <Link
+                        to={`/admin/feedstocks/${feedstock?.id}`}
+                        type="button"
+                        className="btn btn-outline-secondary btn-product mb-3"
+                    >
+                        UPDATE
+                    </Link>
+                    <button
+                        type="button"
+                        className="btn btn-outline-danger btn-product"
+                        onClick={() => onRemove(feedstock !== undefined ? feedstock?.id : 0)}
+                    >
+                        DELETE
+                    </button>
+                </div>
+            </div>}
+        </>
     )
 }
 

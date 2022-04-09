@@ -4,19 +4,14 @@ import './styles.scss';
 const Menu = () => (
     <nav className='menu-nav-container'>
         <ul>
-        <li>
-                <NavLink to="/" className="menu-nav-item">
-                    Home
+            <li>
+                <NavLink to="/admin/products" className="menu-nav-item">
+                     Product
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/admin" className="menu-nav-item">
-                     Product registration
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to="/products" className="menu-nav-item">
-                    Feedstock registration 
+                <NavLink to="/admin/feedstocks" className="menu-nav-item">
+                    Feedstock 
                 </NavLink>
             </li>
             <li>

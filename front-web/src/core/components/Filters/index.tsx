@@ -4,9 +4,10 @@ type Props = {
     name?: string;
     handleChangeName: (name: string) => void;
     clearFilters: () => void;
+    placeholder?: string
 }
 
-const Filters = ({ name,handleChangeName,clearFilters} : Props) => {
+const Filters = ({ name,handleChangeName,clearFilters,placeholder} : Props) => {
     return (
         <div className="card-base product-filters-container">
             <div className='input-search'>
@@ -14,7 +15,7 @@ const Filters = ({ name,handleChangeName,clearFilters} : Props) => {
                     value={name}
                     type="text"
                     className='form-control'
-                    placeholder='Pesquisar Produto'
+                    placeholder={placeholder}
                     onChange={event => handleChangeName(event.target.value)}
                 />
             </div>
@@ -22,7 +23,7 @@ const Filters = ({ name,handleChangeName,clearFilters} : Props) => {
                 className='btn btn-edit border-radius-10'
                 onClick={clearFilters}
             >
-                LIMPAR FILTRO
+                CLEAN FILTERS
             </button>
         </div>
     )

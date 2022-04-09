@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Menu from './pages/Menu';
 import Admin from './pages/Admin';
 import Products from './pages/Admin/Products';
+import Feedstocks from './pages/Admin/Feedstocks';
 
 const Routes = () => (
     <BrowserRouter>
@@ -13,9 +14,11 @@ const Routes = () => (
                     <Route path="/" exact>
                         <Home />
                     </Route>
-                    <Redirect from='/admin' to="/admin/products" exact />
-                    <Route path="/admin">
+                    <Route path="/admin/products">
                         <Products />
+                    </Route>
+                    <Route path="/admin/feedstocks">
+                        <Feedstocks />
                     </Route>
                 </Switch>
     </BrowserRouter>

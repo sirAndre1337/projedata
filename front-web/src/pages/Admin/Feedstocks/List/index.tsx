@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Filters from '../../../../core/components/Filters';
 import Pagination from '../../../../core/components/Pagination';
-import { ProductsResponse } from '../../../../core/types/Entities';
+import { FeedstocksResponse, ProductsResponse } from '../../../../core/types/Entities';
 import { makeRequest } from '../../../../core/utils/request';
 import Card from '../../Card';
 import './styles.scss';
@@ -11,7 +11,7 @@ import './styles.scss';
 const List = () => {
 
     const history = useHistory();
-    const [productResponse, setProductResponse] = useState<ProductsResponse>();
+    const [feedstockResponse, setFeedstockResponse] = useState<FeedstocksResponse>();
     const [activePage, setActivePage] = useState(0);
     const [name, SetName] = useState('');
 
@@ -25,8 +25,8 @@ const List = () => {
             orderBy: 'id'
         }
 
-        makeRequest({ url: '/products', params: params })
-            .then(response => setProductResponse(response.data));
+        makeRequest({ url: '/feedstocks', params: params })
+            .then(response => setFeedstockResponse(response.data));
 
     }, [activePage, name])
 
@@ -35,7 +35,7 @@ const List = () => {
     }, [getProducts])
 
     const handleCreate = () => {
-        history.push('/admin/products/create');
+        history.push('/admin/feedstocks/create');
     }
 
     const handleChangeName = (name: string) => {
@@ -46,21 +46,18 @@ const List = () => {
     const clearFilters = () => {
         setActivePage(0);
         SetName('');
-    }
+    }    
 
-    console.log(name);
-    
-
-    const onRemove = (productId: number) => {
-        const confirm = window.confirm('Do you want to delete this product ?');
+    const onRemove = (feedstockId: number) => {
+        const confirm = window.confirm('Do you want to delete this feedstock ?');
 
         if (confirm) {
-            makeRequest({ url: `/products/${productId}`, method: 'DELETE' })
+            makeRequest({ url: `/feedstocks/${feedstockId}`, method: 'DELETE' })
                 .then(() => {
-                    toast.info('Product removed successfully!');
+                    toast.info('Feedstock removed successfully!');
                     getProducts();
                 }).catch(() => {
-                    toast.error('Error removing product');
+                    toast.error('Error removing feedstock');
                 })
         }
     }
@@ -70,22 +67,22 @@ const List = () => {
             <div className='admin-products-list'>
                 <div className='admin-product-btn-filter mb-5'>
                     <button className='admin-product-btn btn btn-primary' onClick={handleCreate}>
-                        New Product
+                        New Feedstock
                     </button>
                     <Filters
-                        placeholder='Search Product'
+                        placeholder='Search Feedstock'
                         name={name}
                         handleChangeName={handleChangeName}
                         clearFilters={clearFilters}
                     />
                 </div>
                 <div className='admin-list-container'>
-                    {productResponse?.content.map(product => (
-                            <Card product={product} key={product.id} onRemove={onRemove} isProduct={true}/>
+                    {feedstockResponse?.content.map(feedstock => (
+                        <Card feedstock={feedstock} key={feedstock.id} onRemove={onRemove} isProduct={false}/>
                     ))}
                 </div>
-                {productResponse && <Pagination
-                totalPages={productResponse.totalPages}
+                {feedstockResponse && <Pagination
+                totalPages={feedstockResponse.totalPages}
                 onChange={page => setActivePage(page)}
                  />}
             </div>

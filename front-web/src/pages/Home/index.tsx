@@ -12,9 +12,17 @@ const Home = () => (
                     Manage your products and raw materials.
                 </p>
                 <Background className='home-img'/>
-                <Link to="/admin">
-                    <button className='btn btn-primary home-btn'>Acess system</button>
+                <div className='d-flex justify-content-center'>
+                <Link to="/admin/products">
+                    <button className='btn btn-primary home-btn'>Product</button>
                 </Link>
+                <Link to="/admin/feedstocks">
+                    <button className='btn btn-primary home-btn'>Feedstock</button>
+                </Link>
+                <Link to="/admin">
+                    <button className='btn btn-primary home-btn'>Manufacture</button>
+                </Link>
+                </div>
             </div>
         </div>
     </>

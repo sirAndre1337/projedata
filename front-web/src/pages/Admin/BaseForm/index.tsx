@@ -4,12 +4,17 @@ import './styles.scss';
 type Props = {
     title: string
     children: React.ReactNode;
+    isProduct: boolean
 }
 
-const BaseForm = ({ title, children }: Props) => {
+const BaseForm = ({ title, children, isProduct }: Props) => {
     const history = useHistory();
     const handleCancel = () => {
-        history.push('../');
+        if (isProduct === true){
+            history.push('../products');
+        } else {
+            history.push('../feedstocks')
+        }
     }
 
     return (
@@ -20,13 +25,13 @@ const BaseForm = ({ title, children }: Props) => {
             {children}
             <div className='base-form-actions'>
                 <button
-                    className='btn btn-danger'
+                    className='btn btn-danger w-25'
                     onClick={handleCancel}
                 >
-                    CANCELAR
+                    CANCEL
                 </button>
-                <button className='btn btn-primary'>
-                    SALVAR
+                <button className='btn btn-primary w-25'>
+                    SAVE
                 </button>
             </div>
         </div>

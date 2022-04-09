@@ -3,6 +3,11 @@ export type ProductsResponse = {
     totalPages: number;
 }
 
+export type FeedstocksResponse = {
+    content: Feedstock[];
+    totalPages: number;
+}
+
 export type Product = {
     id: number;
     name: string;
