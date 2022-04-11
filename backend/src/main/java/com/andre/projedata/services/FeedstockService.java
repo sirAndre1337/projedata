@@ -23,8 +23,8 @@ public class FeedstockService {
 	private FeedstockRepository repository;
 
 	@Transactional(readOnly = true)
-	public Page<FeedstockDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Feedstock> list = repository.findAll(pageRequest);
+	public Page<FeedstockDTO> findAllPaged(PageRequest pageRequest , String name) {
+		Page<Feedstock> list = repository.findWithName(pageRequest, name);
 		return list.map(x -> new FeedstockDTO(x));
 	}
 
@@ -37,14 +37,14 @@ public class FeedstockService {
 
 	@Transactional
 	public FeedstockDTO saveFeedstock(FeedstockDTO dto) {
-		Feedstock feedstock = new Feedstock(null, dto.getName(), dto.getAmount(), dto.getType());
+		Feedstock feedstock = new Feedstock(null, dto.getName(), dto.getAmount());
 		feedstock = repository.save(feedstock);
 		return new FeedstockDTO(feedstock);
 	}
 
 	public FeedstockDTO updateFeedstock(Long id, FeedstockDTO dto) {
 		findById(id);
-		Feedstock feedstock = new Feedstock(id, dto.getName(), dto.getAmount(), dto.getType());
+		Feedstock feedstock = new Feedstock(id, dto.getName(), dto.getAmount());
 		feedstock = repository.save(feedstock);
 		return new FeedstockDTO(feedstock);
 	}

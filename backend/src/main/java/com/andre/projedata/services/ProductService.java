@@ -49,12 +49,12 @@ public class ProductService {
 		product.setPrice(dto.getPrice());
 		product = repository.save(product);
 		
-		product.getAmountFeedstocks().clear();
-		for (AmountFeedstock af: dto.getAmountFeedstocks()) {
-			product.getAmountFeedstocks().add(af);
-			AmountFeedstock amountFeedstock = new AmountFeedstock(null, af.getFeedstock(), af.getAmount() ,product);
-			amountFeedstockReposity.save(amountFeedstock);
-		}		
+//		product.getAmountFeedstocks().clear();
+//		for (AmountFeedstock af: dto.getAmountFeedstocks()) {
+//			product.getAmountFeedstocks().add(af);
+//			AmountFeedstock amountFeedstock = new AmountFeedstock(null, af.getFeedstock(), af.getAmount() ,product);
+//			amountFeedstockReposity.save(amountFeedstock);
+//		}		
 		
 		return new ProductDTO(product);
 	}
@@ -75,7 +75,7 @@ public class ProductService {
 		try {
 			List<AmountFeedstock> list = amountFeedstockReposity.findAll();
 			for (AmountFeedstock amountFeedstock : list) {
-				if (amountFeedstock.getProduct().getId() == id) {
+				if (amountFeedstock.getProduct_id() == id) {
 					amountFeedstockReposity.deleteById(amountFeedstock.getId());
 				}
 			}

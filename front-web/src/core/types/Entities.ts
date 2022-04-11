@@ -8,6 +8,10 @@ export type FeedstocksResponse = {
     totalPages: number;
 }
 
+// export type AmountFeedStockReponse = {
+//     content : AmountFeedstocks[];
+// }
+
 export type Product = {
     id: number;
     name: string;
@@ -22,6 +26,8 @@ export type Feedstock = {
 }
 
 export type AmountFeedstocks = {
-    feedstock: Feedstock;
+    id: number
+    feedstock_id: number;
+    product_id: number;
     amount: number;
 }

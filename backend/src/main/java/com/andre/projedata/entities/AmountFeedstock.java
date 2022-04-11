@@ -6,9 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,34 +16,25 @@ public class AmountFeedstock {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne
-	@JoinColumn(name = "feedstock_id")
-	private Feedstock feedstock;
+	
+	private Long feedstock_id;
 	
 	private Double amount;
 	
-	@ManyToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
+	
+	private Long product_id;
 	
 	public AmountFeedstock() {
 	}
 
-	public AmountFeedstock(Long id, Feedstock feedstock, Double amount, Product product) {
+	public AmountFeedstock(Long id, Long feedstock_id, Double amount, Long product_id) {
 		super();
 		this.id = id;
-		this.feedstock = feedstock;
+		this.feedstock_id = feedstock_id;
 		this.amount = amount;
-		this.product = product;
+		this.product_id = product_id;
 	}
 
-	public Feedstock getFeedstock() {
-		return feedstock;
-	}
-
-	public void setFeedstock(Feedstock feedstock) {
-		this.feedstock = feedstock;
-	}
 
 	public Double getAmount() {
 		return amount;
@@ -63,13 +51,21 @@ public class AmountFeedstock {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Product getProduct() {
-		return product;
+	
+	public Long getFeedstock_id() {
+		return feedstock_id;
 	}
 	
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setFeedstock_id(Long feedstock_id) {
+		this.feedstock_id = feedstock_id;
+	}
+	
+	public Long getProduct_id() {
+		return product_id;
+	}
+	
+	public void setProduct_id(Long product_id) {
+		this.product_id = product_id;
 	}
 	
 	@Override

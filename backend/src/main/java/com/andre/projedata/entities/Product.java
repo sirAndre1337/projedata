@@ -24,10 +24,6 @@ public class Product implements Serializable{
 	private String name;
 	private Double price;
 	
-	@OneToMany(mappedBy = "product")
-	private List<AmountFeedstock> amountFeedstocks = new ArrayList<>();
-	
-	
 	public Product() {
 	}
 
@@ -60,14 +56,6 @@ public class Product implements Serializable{
 
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-	
-	public List<AmountFeedstock> getAmountFeedstocks() {
-		return amountFeedstocks;
-	}
-	
-	public void setAmountFeedstocks(List<AmountFeedstock> amountFeedstocks) {
-		this.amountFeedstocks = amountFeedstocks;
 	}
 	
 	@Override

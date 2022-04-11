@@ -33,6 +33,7 @@ public class FeedstockResource {
 	@GetMapping
 	public ResponseEntity<Page<FeedstockDTO>> findAll(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "name", defaultValue = "") String name,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy
@@ -40,7 +41,7 @@ public class FeedstockResource {
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage , Direction.valueOf(direction) ,orderBy);
 		
-		Page<FeedstockDTO> list = service.findAllPaged(pageRequest);
+		Page<FeedstockDTO> list = service.findAllPaged(pageRequest , name);
 		
 		return ResponseEntity.ok().body(list);
 	}

@@ -1,6 +1,8 @@
 package com.andre.projedata.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,8 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +26,6 @@ public class Feedstock implements Serializable{
 	private Long id;
 	private String name;
 	private Double amount;
-	private String type;
-	
-	@OneToOne(mappedBy = "feedstock")
-	private AmountFeedstock amountFeedstock;
 	
 	@ManyToOne()
 	@JoinColumn(name = "product_id")
@@ -35,12 +34,11 @@ public class Feedstock implements Serializable{
 	public Feedstock() {
 	}
 
-	public Feedstock(Long id, String name, Double amount, String type) {
+	public Feedstock(Long id, String name, Double amount) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
-		this.type = type;
 	}
 
 	public Long getId() {
@@ -65,22 +63,6 @@ public class Feedstock implements Serializable{
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public AmountFeedstock getAmountFeedstock() {
-		return amountFeedstock;
-	}
-	
-	public void setAmountFeedstock(AmountFeedstock amountFeedstock) {
-		this.amountFeedstock = amountFeedstock;
 	}
 	
 	public Product getProduct() {

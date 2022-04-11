@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { AmountFeedstocks, Feedstock } from '../../../../core/types/Entities';
 import { makeRequest } from '../../../../core/utils/request';
 import BaseForm from '../../BaseForm';
-import Select from 'react-select';
+import Select, { ActionMeta, GroupBase, Options, Props } from 'react-select';
 import './styles.scss';
 
 const Form = () => {
@@ -13,9 +13,6 @@ const Form = () => {
     type FormState = {
         name: string;
         price: string;
-        feedstocks: Feedstock;
-        amount: number;
-
     }
 
     type ParamsType = {
@@ -26,21 +23,6 @@ const Form = () => {
     const history = useHistory();
     const { productId } = useParams<ParamsType>();
     const isEditing = productId !== 'create';
-    const [feedstocks, setFeedstocks] = useState<Feedstock[]>([]);
-    const [select, setSelect] = useState();
-    const [a, setA] = useState<Feedstock>();
-    const [amount, setAmount] = useState('');
-    const payload = [{}]
-
-    const handleSelectFeedstock = (e: any) => {
-        setSelect(e);
-        setA(e);
-    }
-
-    const handlePayload = () => {
-
-
-    }
 
     useEffect(() => {
         if (isEditing) {
@@ -48,17 +30,22 @@ const Form = () => {
                 .then(response => {
                     setValue('name', response.data.name);
                     setValue('price', response.data.price);
+                    console.log(response.data.name);
+                    
                 })
         }
     }, [productId, isEditing, setValue]);
 
-
-    useEffect(() => {
-        makeRequest({ url: '/feedstocks' })
-            .then(reponse => { setFeedstocks(reponse.data.content) });
-    }, [])
-
     const onSubmit = (formData: FormState) => {
+
+        //let fs = formData.feedstocks.id;
+        let nam = formData.name;
+        let pe = formData.price
+
+        const payload = { name: nam, price: pe, amountFeedstocks: [{ feedstock: { id: 2 } }] }
+
+        console.log(formData);
+        console.log(payload);
 
         makeRequest({
             url: isEditing ? `/products/${productId}` : '/products',
@@ -73,7 +60,31 @@ const Form = () => {
                 toast.error('Erro ao salvar produto!');
             })
     };
+    
+    const payload = [{}];
 
+    const handlePayload = () => {
+        //const objsave = {"amount" : amount , "feedstock" : {"id":selectOption?.id}}; 
+        
+        // if (aux === 0) {
+        //     amountFeedstocks.push(objsave);
+        //     setAux(aux + 1);
+        //     console.log(amountFeedstocks);            
+        //     console.log("aux é : " + aux);
+        // } else {
+        //     let newobj = [...amountFeedstocks , objsave]
+        //     console.log(newobj);
+        //     console.log("entrou no else");
+            
+        // }
+
+        //const payload = {amountFeedstocks: [{"amount" : amount , "feedstock" : {"id":selectOption?.id}}]}
+
+        //payload.amountFeedstocks.push(...payload.amountFeedstocks , {"amount" : amount})
+
+        //console.log(payload);
+        
+    }
 
     return (
         <div className="admin-product-container">
@@ -98,8 +109,20 @@ const Form = () => {
                                     </div>}
                             </div>
                             <div className='mb-4'>
+                                <input
+                                    type="string"
+                                    className={`form-control input-base ${errors.price ? 'is-invalid' : ''}`}
+                                    placeholder='Preço'
+                                    {...register('price', { required: 'Campo preço obrigatório' })}
+                                />
+                                {errors.price &&
+                                    <div className='invalid-feedback d-block'>
+                                        {errors.price.message}
+                                    </div>}
+                            </div>
+                            {/* <div className='mb-4'>
                                 <Controller
-                                    rules={{ required: true }}
+                                    
                                     name="feedstocks"
                                     control={control}
                                     render={({ field }) =>
@@ -110,44 +133,28 @@ const Form = () => {
                                             options={feedstocks}
                                             placeholder="Feedstock"
                                             classNamePrefix="feedstock-select"
-                                            onChange={handleSelectFeedstock}
-                                            isOptionSelected={select}
+                                            onChange={handleChange}
                                         />}
                                 />
                                 {errors.feedstocks &&
                                     <div className='invalid-feedback d-block'>
                                         Campo obrigatório
                                     </div>}
-                            </div>
-                            {a &&
+                            </div> */}
+                            {/* {selectOption &&
                                 <div className='mb-4'>
                                     <input
                                         type="number"
                                         value={amount}
                                         className='form-control input-base'
                                         placeholder='Amount'
-                                        onChange={(e) => { setAmount(e.target.value) }}
+                                        onChange={(e) => { setAmount(e.target.value)}}
                                     />
 
                                     <button className='btn btn-success mt-2' onClick={e => { e.preventDefault(); handlePayload() }}>
                                         Save feedstock
                                     </button>
-                                </div>
-
-                            }
-
-                            <div className='mb-4'>
-                                <input
-                                    type="number"
-                                    className={`form-control input-base ${errors.price ? 'is-invalid' : ''}`}
-                                    placeholder='Preço'
-                                    {...register('price', { required: 'Campo preço obrigatório' })}
-                                />
-                                {errors.price &&
-                                    <div className='invalid-feedback d-block'>
-                                        {errors.price.message}
-                                    </div>}
-                            </div>
+                                </div>} */}
                         </div>
                     </div>
                 </BaseForm>

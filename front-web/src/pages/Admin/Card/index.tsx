@@ -25,14 +25,21 @@ const Card = ({ product, onRemove, isProduct, feedstock }: Props) => {
                         type="button"
                         className="btn btn-outline-secondary btn-product mb-3"
                     >
-                        EDITAR
+                        UPDATE
+                    </Link>
+                    <Link
+                        to={`/admin/products/amountfeedstocks/${product?.id}`}
+                        type="button"
+                        className="btn btn-outline-secondary btn-product mb-3"
+                    >
+                        RAW MATERIAL
                     </Link>
                     <button
                         type="button"
                         className="btn btn-outline-danger btn-product"
                         onClick={() => onRemove(product !== undefined ? product?.id : 0)}
                     >
-                        EXCLUIR
+                        DELETE
                     </button>
                 </div>
             </div> : 
